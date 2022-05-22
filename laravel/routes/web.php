@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('App\Http\Controllers')->group(static function () {
     Route::get('/', 'SiteController@index')->name('home');
-    // Route::post('/get-diploma', 'SiteController@getDiploma')->name('get_diploma')->middleware(['web', 'admin']);
 });
 
 /* Auto-generated admin routes */

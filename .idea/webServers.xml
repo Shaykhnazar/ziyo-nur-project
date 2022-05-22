@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="256af20f-ca17-4bad-b1a1-14b8653a180a" name="ziyonur-beget" url="http://ziyo-nur.apphome.beget.tech/">
+        <fileTransfer host="apphome.beget.tech" port="21" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

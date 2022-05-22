@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::namespace('App\Http\Controllers')->group(static function () {
-    Route::post('/get-diploma', 'SiteController@getDiploma')->name('get_diploma')->middleware(['permission:get_diploma']);
+    Route::post('/get-diploma', 'SiteController@getDiploma')->name('get_diploma');
 });

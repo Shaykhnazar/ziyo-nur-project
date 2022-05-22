@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta property="twitter:card" content="summary_large_image" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style data-tag="reset-style-sheet">
       html {  line-height: 1.15;}body {  margin: 0;}* {  box-sizing: border-box;  border-width: 0;  border-style: solid;}p,li,ul,pre,div,h1,h2,h3,h4,h5,h6 {  margin: 0;  padding: 0;}button,input,optgroup,select,textarea {  font-family: inherit;  font-size: 100%;  line-height: 1.15;  margin: 0;}button,select {  text-transform: none;}button,[type="button"],[type="reset"],[type="submit"] {  -webkit-appearance: button;}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner {  border-style: none;  padding: 0;}button:-moz-focus,[type="button"]:-moz-focus,[type="reset"]:-moz-focus,[type="submit"]:-moz-focus {  outline: 1px dotted ButtonText;}a {  color: inherit;  text-decoration: inherit;}input {  padding: 2px 4px;}img {  display: block;}
     </style>
@@ -39,10 +40,9 @@
       data-tag="font"
     />
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div>
-
       <div class="home-container">
         <header data-role="Header" class="home-header">
           <header data-role="Header" class="home-header1">
@@ -120,10 +120,10 @@
         </header>
         <div class="home-banner">
           <h3 class="home-text1">DIPLOM RAQAMINI KIRITING</h3>
-            <form method="post" action="{{ route('get_diploma') }}" id="get-diploma-form">
-                @csrf
+            <form id="get-diploma-form" >
                 <div style="margin-bottom: 50px">
                     <input
+                        name="number"
                         type="text"
                         required
                         autofocus
@@ -131,12 +131,10 @@
                         class="home-textinput"
                     />
                 </div>
-                <button type="submit" class="home-button align content">
+                <button type="submit" name="btn-submit" class="home-button align content">
                     YUKLAB OLISH
                 </button>
             </form>
-
-
         </div>
         <div class="home-social-bar">
             <a href="https://facebook.com/" target="_blank">
@@ -154,4 +152,56 @@
         </div>
     </div>
   </body>
+  <script type="text/javascript">
+
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+
+      $("button[name=btn-submit]").click(function(e){
+          console.log('asdhcbscbasc')
+          e.preventDefault();
+
+          const number = $("input[name=number]").val()
+
+          $.ajax({
+              type: 'POST',
+              url: "{{ route('get_diploma') }}",
+              data: { number:number },
+              success: function(data) {
+                  if (data.url) {
+                      openNewURLInTheSameWindow(data.url)
+                  } else if (data.error) {
+                      alert(data.error)
+                  }
+                  console.log(data.url ?? 'manzil aniqlanmadi')
+                  console.log(data.error ?? 'success')
+              }
+          });
+
+      });
+
+      // this function can fire onclick handler for any DOM-Element
+      function fireClickEvent(element) {
+          const evt = new window.MouseEvent('click', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+          })
+
+          element.dispatchEvent(evt);
+      }
+
+      // this function will setup a virtual anchor element
+      // and fire click handler to open new URL in the same room
+      // it works better than location.href=something or location.reload()
+      function openNewURLInTheSameWindow(targetURL) {
+          let a = document.createElement('a');
+          a.href = targetURL;
+          a.target = '_blank'; // now it will open new tab/window and bypass any popup blocker!
+          fireClickEvent(a);
+      }
+  </script>
 </html>
