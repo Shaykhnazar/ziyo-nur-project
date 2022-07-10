@@ -229,10 +229,13 @@
     .home-banner {
       padding-top: var(--dl-space-space-twounits);
       padding-right: 34px;
-      padding-bottom: 333px;
+      /*padding-bottom: 333px;*/
     }
     .home-text1 {
       margin-bottom: 2px;
+      width: 250px;
+      height: 38px;
+      font-size: 1rem;
     }
     .home-textinput {
       height: 38px;
@@ -290,7 +293,7 @@
       padding-top: var(--dl-space-space-threeunits);
       padding-left: var(--dl-space-space-unit);
       padding-right: var(--dl-space-space-unit);
-      padding-bottom: var(--dl-space-space-threeunits);
+      /*padding-bottom: var(--dl-space-space-threeunits);*/
     }
     .home-social-bar {
       padding-top: var(--dl-space-space-twounits);
